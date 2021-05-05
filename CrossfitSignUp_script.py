@@ -6,7 +6,7 @@ class SignupBot:
 
     def setUp(self):
         self.driver = webdriver.Chrome('./chromedriver')
-        self.driver.get("")
+        self.driver.get("https://goteamup.com/p/904391-dawn-strength-conditionin/")
         self.driver.maximize_window()
 
     def loginPage(self):
@@ -31,9 +31,14 @@ class SignupBot:
     
     def selectSession(self, day, time):
         day_column_dictionary = {
-            "Saturday": "6"
+            "Mon": "2",
+            "Tue": "3",
+            "Wed": "4",
+            "Thu": "5",
+            "Sat": "6"
         }
         time_row_dictionary = {
+            "8am": "6",
             "9am": "8"
         }
         class_day_index = day_column_dictionary[day]
@@ -42,19 +47,23 @@ class SignupBot:
         session_clickable = WebDriverWait(self.driver, 10).until(lambda driver: driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div/div/div/div[7]/div[4]/div[1]/table/tbody/tr["+ class_time_index +"]/td["+ class_day_index +"]/a"))
         session_clickable.click()
 
+    def bookButton(self):
+        book_button = WebDriverWait(self.driver, 10).until(lambda driver: driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div/div[3]/div/div[1]/center/div[1]/div[1]/form/button"))
+        book_button.click()
 
 
     def tearDown(self):
         self.driver.quit()
 
     def main(self):
-        day = "Saturday"
-        time = "9am"
+        day = "Mon"
+        time = "8am"
 
         self.setUp()
         self.loginPage()
         self.enterDetails()
         self.selectSession(day, time)
+        self.bookButton()
 
         self.tearDown()
         

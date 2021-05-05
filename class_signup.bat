@@ -1,0 +1,1 @@
+C:\Python38\python.exe "C:\Users\44785\Documents\Personal Projects\CrossfitSignUpBot\CrossfitSignUp_script.py"
