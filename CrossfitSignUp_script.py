@@ -6,7 +6,7 @@ class SignupBot:
 
     def setUp(self):
         self.driver = webdriver.Chrome('./chromedriver')
-        self.driver.get("https://goteamup.com/p/904391-dawn-strength-conditionin/")
+        self.driver.get("")
         self.driver.maximize_window()
 
     def loginPage(self):
