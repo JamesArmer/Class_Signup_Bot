@@ -1,4 +1,9 @@
-## Azure Function in Python running selenium webdriver using a custom docker image
+## Azure Function in Python running selenium webdriver using a custom docker image to book gym classes
+
+I got annoyed with having to book gym classes every day at the same time and missing out when I forgot. So like any good engineer I automated the process.
+
+_Implementation is based on the below tutorial_
+
 The base Azure Function image does not contain the necessary chromium packages to run selenium webdriver. This project creates a custom docker image with the required libraries such that it can be run as Azure Function.
 
 - For more details, see blog https://towardsdatascience.com/how-to-create-a-selenium-web-scraper-in-azure-functions-f156fd074503
@@ -29,7 +34,7 @@ Run the following commands:
 `$plan = "<<your azure function plan P1v2>>"`  
 `$stor = "<<your storage account adhering to function>>"`  
 `$fun = "<<your azure function name>>"`  
-`$acr_id = "<<your acr>>.azurecr.io"`  
+`$acr_id = "<<your acr>>.azurecr.io"`
 
 `az group create -n $rg -l $loc`  
 `az storage account create -n $stor -g $rg --sku Standard_LRS`  
@@ -38,18 +43,18 @@ Run the following commands:
 
 ### 4. Run Azure Function as HTTP trigger
 
-Test the Function in the portal or in your browser. The following code in __init__.py will return all URLs in the following webpage:
+Test the Function in the portal or in your browser. The following code in **init**.py will return all URLs in the following webpage:
 
 `import azure.functions as func`  
-`from selenium import webdriver`  
+`from selenium import webdriver`
 
-`def main(req: func.HttpRequest) -> func.HttpResponse:`  
+`def main(req: func.HttpRequest) -> func.HttpResponse:`
 
 &nbsp;&nbsp;&nbsp;&nbsp;`chrome_options = webdriver.ChromeOptions()`  
 &nbsp;&nbsp;&nbsp;&nbsp;`chrome_options.add_argument('--headless')`  
 &nbsp;&nbsp;&nbsp;&nbsp;`chrome_options.add_argument('--no-sandbox')`  
-&nbsp;&nbsp;&nbsp;&nbsp;`chrome_options.add_argument('--disable-dev-shm-usage')`  
+&nbsp;&nbsp;&nbsp;&nbsp;`chrome_options.add_argument('--disable-dev-shm-usage')`
 
 &nbsp;&nbsp;&nbsp;&nbsp;`driver = webdriver.Chrome("/usr/local/bin/chromedriver", chrome_options=chrome_options)`  
 &nbsp;&nbsp;&nbsp;&nbsp;`driver.get('http://www.ubuntu.com/')`  
-&nbsp;&nbsp;&nbsp;&nbsp;`links = driver.find_elements_by_tag_name("a")`  
+&nbsp;&nbsp;&nbsp;&nbsp;`links = driver.find_elements_by_tag_name("a")`
